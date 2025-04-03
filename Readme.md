@@ -46,3 +46,60 @@ alert( 'Bee' > 'Be' ); // true
 3) alert( null == undefined ); // true
 4) For maths and other comparisons < > <= >=, null/undefined are converted to numbers: null becomes 0, while undefined becomes NaN.
 5) Precedence of AND && is higher than OR ||
+
+<!-- April 3, 2025 -->
+# Loops
+1) let i = 0; // we have i already declared and assigned
+for (; i < 3; i++) { // no need for "begin"
+  alert( i ); // 0, 1, 2
+}
+2) Labels for break/continue:
+Sometimes we need to break out from multiple nested loops at once.
+outer: for (let i = 0; i < 3; i++) {
+
+  for (let j = 0; j < 3; j++) {
+
+    let input = prompt(`Value at coords (${i},${j})`, '');
+
+    // if an empty string or canceled, then break out of both loops
+    if (!input) break outer; // (*)
+
+    // do something with the value...
+  }
+}
+3) The continue directive can also be used with a label. In this case, code execution jumps to the next iteration of the labeled loop.
+
+# Switch-Case
+1) Grouping of cases, for both case 3 and 5, we have the following grouped case.
+let a = 3;
+switch (a) {
+  case 4:
+    alert('Right!');
+    break;
+
+  case 3: // (*) grouped two cases
+  case 5:
+    alert('Wrong!');
+    alert("Why don't you take a math class?");
+    break;
+
+  default:
+    alert('The result is strange. Really.');
+}
+
+# Function
+1) An empty return is also the same as return undefined.
+2) function checkAge(age) {
+  return (age > 18) || confirm('Did parents allow you?');
+} // true one is returned
+3) Function Declaration, Function Expression, and Arrow Functions
+4) const sayHi = function(){} // function expression
+
+# Function Expression
+1) sayHi stores function as a value, but sayHi can call it.
+2) This value can be copied to other variables.
+let func = sayHi;
+func(); // Hello
+sayHi(); // Hello
+
+# ARROW FUNCTION
