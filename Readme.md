@@ -2,15 +2,15 @@
 Today, I am going to start revisiting javascript to dive deeper into the concepts of MERN stack development and open the gates of industry having more to explore, learn and handsome packages for me.
 
 <!-- 2/4/2025 -->
-# Data types
-1)  Number (12,1.2,-12,Infinity,NaN)
+# DATA TYPES
+1) Number (12,1.2,-12,Infinity,NaN)
 2) String
 3) Bool
 4) Null
 5) Undefined
 6) Symbol
 7) BigInt:
-In JavaScript, the “number” type cannot safely represent integer values larger than (253-1) (that’s 9007199254740991), or less than -(253-1) for negatives.
+In JavaScript, the “number” type cannot safely represent integer values larger than (2^53-1) (that’s 9007199254740991), or less than -(2^53-1) for negatives.
 const someNumber = 1234567890123456789012345678901234567890n; (n describes it as bigint)
 
 # INTERACTION: ALERT, PROMPT, CONFIRM
@@ -48,7 +48,7 @@ alert( 'Bee' > 'Be' ); // true
 5) Precedence of AND && is higher than OR ||
 
 <!-- April 3, 2025 -->
-# Loops
+# LOOPS
 1) let i = 0; // we have i already declared and assigned
 for (; i < 3; i++) { // no need for "begin"
   alert( i ); // 0, 1, 2
@@ -69,7 +69,7 @@ outer: for (let i = 0; i < 3; i++) {
 }
 3) The continue directive can also be used with a label. In this case, code execution jumps to the next iteration of the labeled loop.
 
-# Switch-Case
+# SWITCH-CASE
 1) Grouping of cases, for both case 3 and 5, we have the following grouped case.
 let a = 3;
 switch (a) {
@@ -87,7 +87,7 @@ switch (a) {
     alert('The result is strange. Really.');
 }
 
-# Function
+# FUNCTION
 1) An empty return is also the same as return undefined.
 2) function checkAge(age) {
   return (age > 18) || confirm('Did parents allow you?');
@@ -95,7 +95,7 @@ switch (a) {
 3) Function Declaration, Function Expression, and Arrow Functions
 4) const sayHi = function(){} // function expression
 
-# Function Expression
+# FUNCTION EXPRESSION
 1) sayHi stores function as a value, but sayHi can call it.
 2) This value can be copied to other variables.
 let func = sayHi;
@@ -103,3 +103,30 @@ func(); // Hello
 sayHi(); // Hello
 
 # ARROW FUNCTION
+
+<!-- April 4, 2025 4am coding -->
+# DEBUGGING IN THE BROWSER
+1) Open sources or debugger from dev tools.
+2) There you find file navigation panel, code editor and javascript debugging pane.
+3) A breakpoint is a point of code where the debugger will automatically pause the JavaScript execution.
+4) While the code is paused, we can examine current variables, execute commands in the console etc. In other words, we can debug it.
+5) We can also pause the code by using the 'debugger' command in it, Such command works only when the development tools are open, otherwise the browser ignores it.
+6) Watch – shows current values for any expressions.You can click the plus + and input an expression. The debugger will show its value, automatically recalculating it in the process of execution.
+7) Call Stack – shows the nested calls chain. At the current moment the debugger is inside hello() call, called by a script in index.html (no function there, so it’s called “anonymous”). If you click on a stack item (e.g. “anonymous”), the debugger jumps to the corresponding code, and all its variables can be examined as well.
+8) Scope – current variables. Local shows local function variables. You can also see their values highlighted right over the source. Global has global variables (out of any functions).
+
+# CODING STYLE
+1) Linters are tools that can automatically check the style of your code and make improving suggestions.
+2) Here are some well-known linting tools:
+  a)  JSLint – one of the first linters.
+  b)  JSHint – more settings than JSLint.
+  c)  ESLint – probably the newest one.
+
+# TRANSPILERS AND POLYFILLS
+1) How to make our modern code work on older engines that don’t understand recent features yet?
+There are two tools for that:
+  a)  Transpilers.
+  b)  Polyfills.
+2) A transpiler is a special piece of software that translates source code to another source code. It can parse (“read and understand”) modern code and rewrite it using older syntax constructs, so that it’ll also work in outdated engines.
+Speaking of names, Babel is one of the most prominent transpilers out there. Modern project build systems, such as webpack, provide a means to run a transpiler automatically on every code change, so it’s very easy to integrate into the development process.
+3) In some (very outdated) JavaScript engines, there’s no Math.trunc, so such code will fail. A script that updates/adds new functions is called “polyfill”. It “fills in” the gap and adds missing implementations. One interesting polyfill library is core-js, which supports a wide range of features and allows you to include only the ones you need.
