@@ -130,3 +130,96 @@ There are two tools for that:
 2) A transpiler is a special piece of software that translates source code to another source code. It can parse (“read and understand”) modern code and rewrite it using older syntax constructs, so that it’ll also work in outdated engines.
 Speaking of names, Babel is one of the most prominent transpilers out there. Modern project build systems, such as webpack, provide a means to run a transpiler automatically on every code change, so it’s very easy to integrate into the development process.
 3) In some (very outdated) JavaScript engines, there’s no Math.trunc, so such code will fail. A script that updates/adds new functions is called “polyfill”. It “fills in” the gap and adds missing implementations. One interesting polyfill library is core-js, which supports a wide range of features and allows you to include only the ones you need.
+
+<!-- April 4, 2025 Night session -->
+# OBJECT
+1) Object literal // const obj = new Object()
+2) Object constructor // const obj = {}
+3) delete obj.age
+4) The variable key may be calculated at run-time or depend on the user input.
+let user = {
+  name: "John",
+  age: 30
+};
+let key = prompt("What do you want to know about the user?", "name");
+console.log(user[key])
+5) A number 0 becomes a string "0" when used as a property key.
+6) alert("age" in user)
+let obj = {
+  test: undefined
+};
+alert( obj.test ); // it's undefined, so - no such property?
+alert( "test" in obj ); // true, the property does exist!
+7) for (let key in user) {
+  // keys
+  alert( key );  // name, age, isAdmin
+  // values for the keys
+  alert( user[key] ); // John, 30, true
+}
+
+# CLONING, MERGING AND OBJECT.ASSIGN
+1) Cloning is simply creating an object named clone and using for loop, copying keys and values into it.
+2) Object.assign(dest, ...sources).
+3) Nested cloning: Until now we assumed that all properties of user are primitive. But properties can be references to other objects.
+let user = {
+  name: "John",
+  sizes: {
+    height: 182,
+    width: 50
+  }
+};
+alert( user.sizes.height ); 
+Now it’s not enough to copy clone.sizes = user.sizes, because user.sizes is an object, and will be copied by reference, so clone and user will share the same sizes. Use structuredClone for this.
+let clone = structuredClone(user)
+4) Although, there are cases when structuredClone fails. For instance, when an object has a function property. // Research work needs to be done for this purpose.
+
+# GARBAGE COLLECTION
+JS has garbage collector running all the time, looking for garbage to be removed. Unreachable objects you can say, are removed.
+
+# OBJECT METHODS "this
+1) When we write our code using objects to represent entities, that’s called object-oriented programming, in short: “OOP”.
+2) user = {
+  sayHi: function() {
+    alert("Hello");
+  }
+};
+3) It can be used in any function, even if it’s not a method of an object.
+function sayHi() {
+  alert( this.name );
+}
+4) Arrow functions are special: they don’t have their “own” this. If we reference this from such a function, it’s taken from the outer “normal” function. That’s a special feature of arrow functions, it’s useful when we actually do not want to have a separate this, but rather to take it from the outer context.
+
+# CONSTRUCTOR, OPERATOR "new"
+1) Constructor functions technically are regular functions. There are two conventions though:
+
+  a)  They are named with capital letter first.
+  b)  They should be executed only with "new" operator.
+function User(name) {
+  this.name = name;
+  this.isAdmin = false;
+}
+let user = new User("Jack");
+INTERNAL WORKING
+function User(name) {
+  // this = {};  (implicitly)
+
+  // add properties to this
+  this.name = name;
+  this.isAdmin = false;
+
+  // return this;  (implicitly)
+}
+
+2) Technically, any function (except arrow functions, as they don’t have this) can be used as a constructor.
+3) Inside a function, we can check whether it was called with new or without it, using a special new.target property. It is undefined for regular calls and equals the function if called with new.
+function User(name) {
+  if (!new.target) { // if you run me without new
+    return new User(name); // ...I will add new for you
+  }
+
+  this.name = name;
+}
+let john = User("John"); // redirects call to new User
+alert(john.name); // John
+# OPTIONAL CHAINING
+1) ?.() is used to call a function that may not exist. user.isAdmin?.()
